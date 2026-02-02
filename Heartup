@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Magic</title>
+    <style>
+        body {
+            background-color: #0f0f0f;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* --- YOUR ORIGINAL IMAGE STYLES --- */
+        .info {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            text-align: center;
+            pointer-events: none;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            z-index: 100;
+        }
+
+        /* --- FLOATING HEARTS STYLE --- */
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            color: #ff4d6d;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: moveUp linear forwards;
+        }
+
+        @keyframes moveUp {
+            to {
+                transform: translateY(-110vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+
+        /* --- MAIN CENTER HEART --- */
+        .main-heart {
+            font-size: 100px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            z-index: 10;
+        }
+
+        .main-heart:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="info">
+        <p>SYSTEM STATUS: OVERFLOWING WITH LOVE</p>
+        <p>Press the heart to deploy affection.</p>
+    </div>
+
+    <div class="main-heart" onclick="spawnHearts()">❤️</div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Spawn a few automatically
+        setInterval(createHeart, 300);
+
+        // Burst when clicking the main heart
+        function spawnHearts() {
+            for(let i=0; i<15; i++) {
+                setTimeout(createHeart, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
